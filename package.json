@@ -1,7 +1,7 @@
 {
 	"name": "mvcc-wysiwyg-editor",
 	"version": "1.0.0",
-	"description": "A markdown editor built using mvcc-component and mvcc-objects.",
+	"description": "A WYSIWYG editor built using mvcc-component and mvcc-objects.",
 	"main": "mvcc-markdown-editor.js",
 	"scripts": {
 	  "test": "echo \"Error: no test specified\" && exit 1",
