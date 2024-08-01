@@ -1,4 +1,4 @@
-# mvcc-markdown-editor-js
+# mvcc-wysiwyg-editor-js
 
 A custom component built that provides a simple markdown editor. It requires the mvcc-component script and mvcc-objects stylesheet.
 

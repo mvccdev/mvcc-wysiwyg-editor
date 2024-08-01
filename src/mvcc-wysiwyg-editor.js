@@ -115,6 +115,33 @@ class MvccWYSIWYGEditor extends MvccComponent {
 		}	
 
 		/**
+		 * Align Left event
+		 */
+		if(this.root.getElementById("js-editor-align-left")) { 
+			this.root.getElementById("js-editor-align_left").addEventListener("click", () => {			 
+				document.execCommand("justifyLeft");
+			});
+		}
+
+		/**
+		 * Align Center event
+		 */
+		if(this.root.getElementById("js-editor-align-center")) { 
+			this.root.getElementById("js-editor-align_center").addEventListener("click", () => {			 
+				document.execCommand("justifyCenter");
+			});
+		}
+
+		/**
+		 * Align Right event
+		 */
+		if(this.root.getElementById("js-editor-align-right")) { 
+			this.root.getElementById("js-editor-align_right").addEventListener("click", () => {			 
+				document.execCommand("justifyRight");
+			});
+		}
+
+		/**
 		 * Bullets event
 		 */
 		if(this.root.getElementById("js-editor-bullets")) { 

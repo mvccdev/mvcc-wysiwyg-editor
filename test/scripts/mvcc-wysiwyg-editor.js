@@ -132,6 +132,33 @@ class MvccWYSIWYGEditor extends MvccComponent {
 		}	
 
 		/**
+		 * Align Left event
+		 */
+		if(this.root.getElementById("js-editor-align-left")) { 
+			this.root.getElementById("js-editor-align-left").addEventListener("click", () => {			 
+				document.execCommand("justifyLeft");
+			});
+		}
+
+		/**
+		 * Align Center event
+		 */
+		if(this.root.getElementById("js-editor-align-center")) { 
+			this.root.getElementById("js-editor-align-center").addEventListener("click", () => {			 
+				document.execCommand("justifyCenter");
+			});
+		}
+
+		/**
+		 * Align Right event
+		 */
+		if(this.root.getElementById("js-editor-align-right")) { 
+			this.root.getElementById("js-editor-align-right").addEventListener("click", () => {			 
+				document.execCommand("justifyRight");
+			});
+		}
+		
+		/**
 		 * Bullets event
 		 */
 		if(this.root.getElementById("js-editor-bullets")) { 
@@ -316,6 +343,39 @@ class MvccWYSIWYGEditor extends MvccComponent {
 		`;
 
 		/**
+		 * Align Left
+		 */
+		const _align_left_button = this.props.buttons.includes("left") == false ? "" : `
+			<button id="js-editor-align-left" class="mvcc-button custom-button--type-outline" title="Align Left">
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+					<path d="M120-120v-80h720v80H120Zm0-160v-80h480v80H120Zm0-160v-80h720v80H120Zm0-160v-80h480v80H120Zm0-160v-80h720v80H120Z" />
+				</svg>
+			</button>	
+		`;
+
+		/**
+		 * Align Center
+		 */
+		const _align_center_button = this.props.buttons.includes("center") == false ? "" : `
+			<button id="js-editor-align-center" class="mvcc-button custom-button--type-outline" title="Align Center">
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+					<path d="M120-120v-80h720v80H120Zm160-160v-80h400v80H280ZM120-440v-80h720v80H120Zm160-160v-80h400v80H280ZM120-760v-80h720v80H120Z" />
+				</svg>
+			</button>	
+		`;
+
+		/**
+		 * Align Right
+		 */
+		const _align_right_button = this.props.buttons.includes("right") == false ? "" : `
+			<button id="js-editor-align-right" class="mvcc-button custom-button--type-outline" title="Align Right">
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+					<path d="M120-760v-80h720v80H120Zm240 160v-80h480v80H360ZM120-440v-80h720v80H120Zm240 160v-80h480v80H360ZM120-120v-80h720v80H120Z" />
+				</svg>
+			</button>	
+		`;
+
+		/**
 		 * Outdent button
 		 */
 		const _outdent_button = this.props.buttons.includes("outdent") == false ? "" : `
@@ -389,6 +449,9 @@ class MvccWYSIWYGEditor extends MvccComponent {
 							${_strikethrough_button}
 							${_superscript_button}	
 							${_subscript_button}
+							${_align_left_button}
+							${_align_center_button}
+							${_align_right_button}
 							${_bullets_button}
 							${_numbers_button}	
 							${_outdent_button}
