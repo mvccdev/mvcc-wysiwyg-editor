@@ -11,7 +11,7 @@ class MvccWYSIWYGEditor extends MvccComponent {
 		//
 		// Return the selected text.
 		//
-		return _el.value.substring(_el.selectionStart, _el.selectionEnd).trim() || " ";
+		return window.getSelection() || " ";
 	}
 
 	/**
@@ -24,8 +24,7 @@ class MvccWYSIWYGEditor extends MvccComponent {
 	/**
 	 * Sets the text inside the editor.
 	 */
-	set text(_value) {
-		 
+	set text(_value) {		 
 		this.root.getElementById("js-editor").innerHTML = _value;
 	}
 	
@@ -41,7 +40,7 @@ class MvccWYSIWYGEditor extends MvccComponent {
 	}
 
 	/**
-	 * Insert HTML into the editor.
+	 * Insert HTML into the editor where the caret is.
 	 */
 	insert(_html) {
 		document.execCommand("insertText", false, _html);
@@ -113,12 +112,30 @@ class MvccWYSIWYGEditor extends MvccComponent {
 				document.execCommand("strikethrough");
 			});
 		}	
+ 
+		/**
+		 * Superscript event
+		 */
+		if(this.root.getElementById("js-editor-superscript")) { 
+			this.root.getElementById("js-editor-superscript").addEventListener("click", () => {			 
+				document.execCommand("superscript");
+			});
+		}	
+		
+		/**
+		 * Subscript event
+		 */
+		if(this.root.getElementById("js-editor-subscript")) { 
+			this.root.getElementById("js-editor-subscript").addEventListener("click", () => {			 
+				document.execCommand("subscript");
+			});
+		}	
 
 		/**
 		 * Align Left event
 		 */
 		if(this.root.getElementById("js-editor-align-left")) { 
-			this.root.getElementById("js-editor-align_left").addEventListener("click", () => {			 
+			this.root.getElementById("js-editor-align-left").addEventListener("click", () => {			 
 				document.execCommand("justifyLeft");
 			});
 		}
@@ -127,7 +144,7 @@ class MvccWYSIWYGEditor extends MvccComponent {
 		 * Align Center event
 		 */
 		if(this.root.getElementById("js-editor-align-center")) { 
-			this.root.getElementById("js-editor-align_center").addEventListener("click", () => {			 
+			this.root.getElementById("js-editor-align-center").addEventListener("click", () => {			 
 				document.execCommand("justifyCenter");
 			});
 		}
@@ -136,11 +153,11 @@ class MvccWYSIWYGEditor extends MvccComponent {
 		 * Align Right event
 		 */
 		if(this.root.getElementById("js-editor-align-right")) { 
-			this.root.getElementById("js-editor-align_right").addEventListener("click", () => {			 
+			this.root.getElementById("js-editor-align-right").addEventListener("click", () => {			 
 				document.execCommand("justifyRight");
 			});
 		}
-
+		
 		/**
 		 * Bullets event
 		 */
@@ -282,6 +299,28 @@ class MvccWYSIWYGEditor extends MvccComponent {
 		`;
 		
 		/**
+		 * Superscript button
+		 */
+		const _superscript_button = this.props.buttons.includes("superscript") == false ? "" : `
+			<button id="js-editor-superscript" class="mvcc-button custom-button--type-outline" title="Superscript">
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+					<path d="M760-600v-80q0-17 11.5-28.5T800-720h80v-40H760v-40h120q17 0 28.5 11.5T920-760v40q0 17-11.5 28.5T880-680h-80v40h120v40H760ZM235-160l185-291-172-269h106l124 200h4l123-200h107L539-451l186 291H618L482-377h-4L342-160H235Z" />
+				</svg>
+			</button>	
+		`;
+		
+		/**
+		 * Subscript button
+		 */
+		const _subscript_button = this.props.buttons.includes("subscript") == false ? "" : `
+			<button id="js-editor-subscript" class="mvcc-button custom-button--type-outline" title="Subscript">
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+					<path d="M760-160v-80q0-17 11.5-28.5T800-280h80v-40H760v-40h120q17 0 28.5 11.5T920-320v40q0 17-11.5 28.5T880-240h-80v40h120v40H760Zm-525-80 185-291-172-269h106l124 200h4l123-200h107L539-531l186 291H618L482-457h-4L342-240H235Z" />
+				</svg>
+			</button>	
+		`;
+
+		/**
 		 * Bullets button
 		 */		
 		const _bullets_button = this.props.buttons.includes("bullets") == false ? "" : `
@@ -294,14 +333,46 @@ class MvccWYSIWYGEditor extends MvccComponent {
 		
 		/**
 		 * Numbers button
-		 */
-		
+		 */		
 		const _numbers_button = this.props.buttons.includes("numbers") == false ? "" : `
-				<button id="js-editor-numbers" class="mvcc-button custom-button--type-outline" title="Numbering">
+				<button id="js-editor-numbers" class="mvcc-button custom-button--type-outline" title="Italics">
 					<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
 						<path d="M120-80v-60h100v-30h-60v-60h60v-30H120v-60h120q17 0 28.5 11.5T280-280v40q0 17-11.5 28.5T240-200q17 0 28.5 11.5T280-160v40q0 17-11.5 28.5T240-80H120Zm0-280v-110q0-17 11.5-28.5T160-510h60v-30H120v-60h120q17 0 28.5 11.5T280-560v70q0 17-11.5 28.5T240-450h-60v30h100v60H120Zm60-280v-180h-60v-60h120v240h-60Zm180 440v-80h480v80H360Zm0-240v-80h480v80H360Zm0-240v-80h480v80H360Z" />
 					</svg>
 				</button>	
+		`;
+
+		/**
+		 * Align Left
+		 */
+		const _align_left_button = this.props.buttons.includes("left") == false ? "" : `
+			<button id="js-editor-align-left" class="mvcc-button custom-button--type-outline" title="Align Left">
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+					<path d="M120-120v-80h720v80H120Zm0-160v-80h480v80H120Zm0-160v-80h720v80H120Zm0-160v-80h480v80H120Zm0-160v-80h720v80H120Z" />
+				</svg>
+			</button>	
+		`;
+
+		/**
+		 * Align Center
+		 */
+		const _align_center_button = this.props.buttons.includes("center") == false ? "" : `
+			<button id="js-editor-align-center" class="mvcc-button custom-button--type-outline" title="Align Center">
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+					<path d="M120-120v-80h720v80H120Zm160-160v-80h400v80H280ZM120-440v-80h720v80H120Zm160-160v-80h400v80H280ZM120-760v-80h720v80H120Z" />
+				</svg>
+			</button>	
+		`;
+
+		/**
+		 * Align Right
+		 */
+		const _align_right_button = this.props.buttons.includes("right") == false ? "" : `
+			<button id="js-editor-align-right" class="mvcc-button custom-button--type-outline" title="Align Right">
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+					<path d="M120-760v-80h720v80H120Zm240 160v-80h480v80H360ZM120-440v-80h720v80H120Zm240 160v-80h480v80H360ZM120-120v-80h720v80H120Z" />
+				</svg>
+			</button>	
 		`;
 
 		/**
@@ -329,7 +400,7 @@ class MvccWYSIWYGEditor extends MvccComponent {
 		/**
 		 * Link button
 		 */
-		const _link_button = this.props.buttons.includes("hr") == false ? "" : `
+		const _link_button = this.props.buttons.includes("link") == false ? "" : `
 			<button id="js-editor-link" class="mvcc-button custom-button--type-outline" title="Link">
 				<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
 					<path d="M440-280H280q-83 0-141.5-58.5T80-480q0-83 58.5-141.5T280-680h160v80H280q-50 0-85 35t-35 85q0 50 35 85t85 35h160v80ZM320-440v-80h320v80H320Zm200 160v-80h160q50 0 85-35t35-85q0-50-35-85t-85-35H520v-80h160q83 0 141.5 58.5T880-480q0 83-58.5 141.5T680-280H520Z" />
@@ -375,7 +446,12 @@ class MvccWYSIWYGEditor extends MvccComponent {
 							${_h4_button}
 							${_bold_button}	
 							${_italic_button}	
-							${_strikethrough_button}	
+							${_strikethrough_button}
+							${_superscript_button}	
+							${_subscript_button}
+							${_align_left_button}
+							${_align_center_button}
+							${_align_right_button}
 							${_bullets_button}
 							${_numbers_button}	
 							${_outdent_button}
@@ -386,8 +462,8 @@ class MvccWYSIWYGEditor extends MvccComponent {
 
 					<!--#editor-->
 
-					<div id="js-editor" contenteditable="true" class="mvcc-form__input" style="height: ${props.height || '250px'}">${props.value || ""}</div>
-	 
+					<div id="js-editor" contenteditable="true" class="mvcc-form__input" style="min-height: ${props.height || '250px'}">${props.value || ""}</div>
+					
 				</div>
 		`;
 	}

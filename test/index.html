@@ -18,17 +18,12 @@
 		<mvcc-wysiwyg-editor style="margin-bottom: 3rem;" id="my-wysiwyg-editor" buttons="h1, h2, h3, h4, bold, italic, strikethrough, superscript, subscript, left, center, right bullets, numbers, outdent, indent, link, hr">
 			The quick brown fox jumped over the lazy dog.
 		</mvcc-wysiwyg-editor>
-		<button onclick="test()">aaa</button>
+		 
 		<!--#scripts-->
 
 		<script src="https://cdn.jsdelivr.net/gh/mvccdev/mvcc-component-js@main/dist/mvcc-component.min.js"></script>
-		<script src="/scripts/mvcc-wysiwyg-editor.js"></script>
+		<script src="scripts/mvcc-wysiwyg-editor.js"></script>
 
-		<script>		 
-			function test() {
-				document.getElementById("my-wysiwyg-editor").wrap("<strong>","</strong>");
-			}
-			document.getElementById("my-wysiwyg-editor").text = `The quick <strong>brown fox</strong> jumped over the lazy dog.`;
-			 </script>
+		 
 	</body>
 </html>
